@@ -1,98 +1,85 @@
-# POC-32-AirQualityHeatmap-ParvathyCR
+# Aether Pulse — Air Quality Heatmap
 
-## Air Quality Heatmap
+## Real-Time Air Intelligence Dashboard
 
-A Real Rails Intelligence Library POC focused on Data & Intelligence.
+Aether Pulse is a production-style demonstration for the **Real Rails Intelligence Library**, focused on the **Data & Intelligence** rail.
 
-This project provides an interactive air quality dashboard that visualizes
-pollution measurements, population exposure, and comparisons between cities.
+It combines air-quality observations, population context, spatial visualization, exposure scoring, and city comparison into an interactive intelligence dashboard.
 
-## Why This Matters
+---
 
-Air pollution is not evenly distributed across cities. Combining pollution
-measurements with population data helps show where larger numbers of people
-may be exposed to poor air quality.
+## Project
 
-## Who Controls the Rail
+| Item | Details |
+|---|---|
+| PoC | 32 |
+| Project | Air Quality Heatmap |
+| Dashboard | Aether Pulse |
+| Rail | Data & Intelligence |
+| Primary Air Quality Source | OpenAQ |
+| Population Source | WorldPop |
+| Frontend | Next.js + TypeScript + Tailwind CSS |
+| Backend | Python FastAPI + Pandas |
+| Map | Leaflet / React Leaflet |
+| Charts | Recharts |
+| Containerization | Docker + Docker Compose |
 
-Public agencies, environmental regulators, monitoring networks, and data
-providers shape how pollution is measured, reported, and acted upon.
+---
 
-## Features
+## What Aether Pulse Does
 
-- Interactive city air quality map
-- Pollutant selector
-- Pollution time-series charts
-- Exposure scoring
+Aether Pulse turns air-quality data into understandable intelligence.
+
+### Core capabilities
+
+- Interactive city air-quality map
+- Pollutant selection
+- City search
 - City comparison
+- Time-series visualization
+- Exposure scoring
+- Population context
 - Intelligence insights
-- Interactive filters
-- Map tooltips
+- Live-data status
+- Fallback-data handling
 - Downloadable sample data
-- Automatic fallback to local synthetic data if live APIs fail
 
-## Technology Stack
+The dashboard is designed for three audiences:
 
-### Frontend
+- **Everyday viewers** — understand what the data means
+- **Builders** — understand how the data and application work
+- **Allocators** — understand where environmental intelligence and exposure matter
 
-- Next.js
-- TypeScript
-- Tailwind CSS
-- shadcn/ui
-- Leaflet
-- React Leaflet
-- Recharts
+---
 
-### Backend
+# Architecture
 
-- Python
-- FastAPI
-- Pandas
-- GeoPandas
-
-## Data Sources
-
-- OpenAQ
-- WorldPop
-
-## Architecture
-
-See the `architecture/` directory for the system architecture and data flow.
-
-## Project Structure
+The application follows a three-layer architecture.
 
 ```text
-POC-01-AirQualityHeatmap-Paru/
-├── README.md
-├── architecture/
-├── screenshots/
-├── backend/
-└── frontend/
-
-# Execution Evidence
-
-Screenshots demonstrating the working application are available in the screenshots/ directory.
-
-# Security
-
-API keys, passwords, tokens, and other secrets are stored outside the repository using environment variables.
-No secrets should be committed to this public repository.
-
-# Mock Data Fallback
-
-If a live data source becomes unavailable or returns an error, the backend automatically falls back to locally stored synthetic data so the demo remains functional.
-Synthetic data is clearly labeled in the application.
-
-# Setup
-Detailed installation and execution instructions will be added as the project is implemented.
-
-# Limitations
-This is a proof of concept. Exposure scores are analytical indicators for demonstration purposes and should not be interpreted as clinical or official public-health risk measurements.
-
-# Future Improvements
-Additional cities and regions
-More pollutant types
-Improved exposure methodology
-Additional public data sources
-Historical analysis
-More detailed geographic layers
+OpenAQ ───────────────┐
+                      │
+WorldPop ─────────────┤
+                      ▼
+               Data Adapters
+                      │
+                      ▼
+              FastAPI Backend
+                      │
+        ┌─────────────┼─────────────┐
+        │             │             │
+   Air Quality     Exposure     Comparison
+     Service        Scoring       Service
+        │             │             │
+        └─────────────┼─────────────┘
+                      │
+                JSON / GeoJSON
+                      │
+                      ▼
+              Next.js Frontend
+                      │
+        ┌─────────────┼─────────────┐
+        │             │             │
+        ▼             ▼             ▼
+       Map          Charts      Intelligence
+                                  Sidebar
