@@ -13,9 +13,15 @@ load_dotenv()
 
 app = FastAPI(title="Air Quality Intelligence API")
 
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL",
+    "http://localhost:3000",
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        FRONTEND_URL,
         "http://localhost:3000",
         "http://127.0.0.1:3000",
     ],
